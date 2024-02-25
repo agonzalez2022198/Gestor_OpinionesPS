@@ -1,7 +1,7 @@
 const  Opinion = require('../src/models/opiniones.model');
 const { response } = require('express');
 
-const opinionesGert = async (req, res= response) => {
+const opinionesGet = async (req, res= response) => {
     const {limite, desde} = req.body;
     const query = {estado: true};
 
@@ -39,4 +39,10 @@ const opinionesPost = async (req, res) => {
     res.status(202).json({
         opinion
     });
+}
+
+module.exports = {
+    opinionesGet,
+    getOpinionesById,
+    opinionesPost
 }
