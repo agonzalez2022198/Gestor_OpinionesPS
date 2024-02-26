@@ -21,8 +21,19 @@ const OpinionesSchema = Schema  ({
     othersDet: {
         type: String,
         required: [true, 'No puedes dejar vacio este campo']
+    },
+
+    estado:{
+        type: Boolean,
+        default: true
     }
 
 });
+
+OpinionesSchema.methods.toJSON = function(){
+    const{ __v, _id, ...opinion} = this.toObject();
+    opinion.uid = _id;
+    return opinion;
+}
 
 module.exports = model('Opinion', OpinionesSchema);

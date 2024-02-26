@@ -1,4 +1,4 @@
-const Opinion = require('../src/models/opiniones.model');
+const Opinion = require('../models/opiniones.model');
 
 const opinionExistente = async (id = '') => {
     const opinionExs = await Opinion.findOne({id});

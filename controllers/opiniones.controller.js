@@ -1,4 +1,4 @@
-const  Opinion = require('../src/models/opiniones.model');
+const  Opinion = require('../models/opiniones.model');
 const { response } = require('express');
 
 const opinionesGet = async (req, res= response) => {

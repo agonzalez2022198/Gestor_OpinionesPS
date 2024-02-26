@@ -7,6 +7,7 @@ class Server{
     constructor(){
         this.app = express();
         this.port = process.env.PORT;
+        this.opinionPath = '/api/opinion';
 
         this.conectarDB();
         this.middlewares();
@@ -27,7 +28,13 @@ class Server{
 
 
     router(){
+        this.app.use(this.opinionPath, require('../routes/opiniones.routes'));
+    }
 
+    listen(){
+        this.app.listen(this.port, () => {
+            console.log('Servidor ejecutándose y escuchando el puerto', this.port)
+        });
     }
 
 
