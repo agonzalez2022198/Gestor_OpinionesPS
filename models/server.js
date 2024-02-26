@@ -26,7 +26,7 @@ class Server{
     }
 
 
-    routes(){
+    router(){
 
     }
 
