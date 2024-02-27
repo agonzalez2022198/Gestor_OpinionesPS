@@ -8,6 +8,7 @@ class Server{
         this.app = express();
         this.port = process.env.PORT;
         this.opinionPath = '/api/opinion';
+        this.publicPath = '/api/publicacion';
 
         this.conectarDB();
         this.middlewares();
@@ -29,6 +30,7 @@ class Server{
 
     router(){
         this.app.use(this.opinionPath, require('../routes/opiniones.routes'));
+        this.app.use(this.publicPath, require('../routes/publicaciones.routes'));
     }
 
     listen(){
