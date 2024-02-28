@@ -1,5 +1,6 @@
 const Opinion = require('../models/opiniones.model');
-const Publicacion = require('../models/publicacion.model')
+const Publicacion = require('../models/publicacion.model');
+const Usuario = require('../models/usuario.model');
 
 const opinionExistente = async (id = '') => {
     const opinionExs = await Opinion.findOne({id});
@@ -15,7 +16,28 @@ const publicacionExistente = async (id = '') => {
     }
 }
 
+
+const userExist = async (id = '') => {
+    const usuario = await Usuario.findOne({id});
+    if(pubExist){
+        throw new Error(`El usuario con id ${id} no existe`);
+    }
+}
+
+
+const existenteEmail = async(correo = '') => {
+    const existeEmail = await Usuario.findOne({correo});
+    if(existeEmail){
+        throw new Error(`El correo ${ correo } ya está registrado`);
+    }
+
+
+}
+
+
 module.exports = {
     opinionExistente,
-    publicacionExistente
+    publicacionExistente,
+    userExist,
+    existenteEmail
 }
