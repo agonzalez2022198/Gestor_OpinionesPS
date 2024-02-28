@@ -9,6 +9,7 @@ class Server{
         this.port = process.env.PORT;
         this.opinionPath = '/api/opinion';
         this.publicPath = '/api/publicacion';
+        this.userPath = '/api/usuario'
 
         this.conectarDB();
         this.middlewares();
@@ -31,11 +32,12 @@ class Server{
     router(){
         this.app.use(this.opinionPath, require('../routes/opiniones.routes'));
         this.app.use(this.publicPath, require('../routes/publicaciones.routes'));
+        this.app.use(this.userPath, require('../routes/usuario.routes'));
     }
 
     listen(){
         this.app.listen(this.port, () => {
-            console.log('Servidor ejecutándose y escuchando el puerto', this.port)
+            console.log('Servidor ejecutándose y escuchando el puerto', this.port);
         });
     }
 

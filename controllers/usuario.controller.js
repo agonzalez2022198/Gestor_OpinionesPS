@@ -36,41 +36,30 @@ const getUsuarioById = async (req, res) => {
 
 const putUsuarios = async (req, res = response) => {
     const { id } = req.params;
-    const { _id, password, correo, ...resto } = req.body;
+    const { _id, ...resto } = req.body;
 
-    if(password){
-        const salt = bcryptjs.genSaltSync();
-        resto.password = bcryptjs.hashSync(password, salt);
+    try {
+        
+        await Usuario.findByIdAndUpdate(id, resto);
 
+        
+        const usuarioAct = await Usuario.findById(id);
+
+        res.status(200).json({
+            usuario: usuarioAct,
+            msg: 'Tu cuenta se ha actualizado'
+        });
+    } catch (error) {
+        console.error('Error al actualizar tu cuenta:', error);
+        res.status(500).json({ error: 'Error del servidor al actualizar el perfil' });
     }
-
-    await Usuario.findByIdAndUpdate(id, resto);
-
-    const usuario = Usuario.findOne({id});
-
-    res.status(200).json({
-        msg: 'Usuario Actualizado Exitosamente!!!',
-        usuario
-    });
 }
 
 
-const usuariosDelete = async (req, res) => {
-
-    const {id} = req.params;
-    const usuario = await Usuario.findByIdAndUpdate(id, {estado: false});
-    const usuarioAutenticado = req.usuario;
-
-    res.status(200).json({
-        msg: "Usuario a eliminar",
-        usuario,
-        usuarioAutenticado
-    });
-}
 
 
 const usuariosPost = async (req, res) => {
-    const {nombre, correo, password, role} = req.body;
+    const {nombre, apellidos, correo, password} = req.body;
     const usuario = new Usuario({nombre, apellidos, correo, password});
 
     const salt = bcryptjs.genSaltSync();
@@ -86,7 +75,6 @@ const usuariosPost = async (req, res) => {
 module.exports = {
     getUsuarios,
     getUsuarioById,
-    usuariosDelete,
     putUsuarios,
     usuariosPost
 }

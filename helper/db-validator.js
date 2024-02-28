@@ -19,7 +19,7 @@ const publicacionExistente = async (id = '') => {
 
 const userExist = async (id = '') => {
     const usuario = await Usuario.findOne({id});
-    if(pubExist){
+    if(usuario){
         throw new Error(`El usuario con id ${id} no existe`);
     }
 }
