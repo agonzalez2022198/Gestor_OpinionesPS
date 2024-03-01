@@ -12,8 +12,7 @@ const PublicacionSchema = Schema({
     },
 
     autor: {
-        type: String,
-        required: [true, 'Y el autor??']
+        type: mongoose.Schema.Types.objectId, ref: 'Usuario'
     },
 
     fechaPublic: {

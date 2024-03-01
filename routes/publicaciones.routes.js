@@ -3,6 +3,8 @@ const { check } = require('express-validator');
 
 const { validarCampos } = require('../middlewares');
 
+const Publicacion = require('../models/publicacion.model');
+
 const {
     publicacionGet, getPublicacinesById, publicacionDelete, publicacionPost
 } = require('../controllers/publicacion.controller');
@@ -40,6 +42,22 @@ router.delete(
         validarCampos
     ], publicacionDelete
 );
+
+
+router.post ('/publicaciones', ensureAuthenticated, async (req, res) => {
+    try {
+        const nuevaPublicacion = new Publicacion({
+            titulo: req.body.titulo,
+            contenido: req.body.contenido,
+            autor: req.user._id
+        });
+
+        const savePublic = await nuevaPublicacion.save();
+        res.status(201).json(savePublic);
+    } catch (e) {
+        res.status(400).json({msg: e.message});
+    }
+});
 
 
 module.exports = router;
