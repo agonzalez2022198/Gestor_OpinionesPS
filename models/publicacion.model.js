@@ -12,7 +12,8 @@ const PublicacionSchema = Schema({
     },
 
     autor: {
-        type: mongoose.Schema.Types.objectId, ref: 'Usuario'
+        type: Schema.Types.ObjectId, // Aquí cambia a Schema.Types.ObjectId
+        ref: 'Usuario'
     },
 
     fechaPublic: {
@@ -21,6 +22,5 @@ const PublicacionSchema = Schema({
         required: [true, 'La fecha es automática']
     }
 });
-
 
 module.exports = model('Publicacion', PublicacionSchema);

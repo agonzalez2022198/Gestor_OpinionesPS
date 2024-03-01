@@ -3,6 +3,8 @@ const { check } = require('express-validator');
 
 const { validarCampos } = require('../middlewares');
 
+const {ensureAuthenticated} = require('../middlewares/autentificado');
+
 const Publicacion = require('../models/publicacion.model');
 
 const {
