@@ -12,9 +12,9 @@ const PublicacionSchema = Schema({
     },
 
     autor: {
-        type: Schema.Types.ObjectId, // Aquí cambia a Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
         ref: 'Usuario'
-    },
+    }, 
 
     fechaPublic: {
         type: Date,

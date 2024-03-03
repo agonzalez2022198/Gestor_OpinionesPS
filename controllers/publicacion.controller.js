@@ -3,7 +3,7 @@ const { response } = require('express');
 
 const publicacionGet = async (req, res =response) => {
     const {limite, desde} = req.query;
-    const query = {estado: true}
+    const query = {estado: true};
 
     const [total, publicacion] = await Promise.all([
         Publicacion.countDocuments(query),
@@ -55,9 +55,29 @@ const publicacionPost = async (req, res) => {
 }
 
 
+const newPost = async (req, res) => {
+    const { contenido } = req.body;
+    const usuarioId = req.userId; // Se asume que el ID del usuario autenticado está presente en req.userId
+
+    try {
+        // Crear la publicación asociada al usuario autenticado
+        const publicacion = new Publicacion({ contenido, autor: usuarioId });
+        await publicacion.save();
+
+        res.status(201).json({ msg: 'Publicación creada correctamente', publicacion });
+    } catch (error) {
+        console.error('Error al crear la publicación:', error);
+        res.status(500).json({ msg: 'Error al crear la publicación' });
+    }
+}
+
+
+
+
 module.exports = {
     publicacionGet,
     getPublicacinesById,
     publicacionDelete,
-    publicacionPost
+    publicacionPost,
+    newPost
 }

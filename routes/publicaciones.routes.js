@@ -1,14 +1,14 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { validarCampos } = require('../middlewares');
+const { validarCampos, validarJWT } = require('../middlewares');
 
 const {ensureAuthenticated} = require('../middlewares/autentificado');
 
 const Publicacion = require('../models/publicacion.model');
 
 const {
-    publicacionGet, getPublicacinesById, publicacionDelete, publicacionPost
+    publicacionGet, getPublicacinesById, publicacionDelete, publicacionPost, newPost
 } = require('../controllers/publicacion.controller');
 
 const { publicacionExistente } = require('../helper/db-validator');
@@ -29,6 +29,7 @@ router.get(
 router.post(
     "/",
     [
+        
         check("titulo", "El titulo no puede estar vacío").not().isEmpty(),
         check("contenido","El contenido no puede estar vacío").not().isEmpty(),
         check("autor","Y el autor").not().isEmpty(),
@@ -60,6 +61,9 @@ router.post ('/publicaciones', ensureAuthenticated, async (req, res) => {
         res.status(400).json({msg: e.message});
     }
 });
+
+router.post('/create', validarJWT, newPost);
+
 
 
 module.exports = router;
