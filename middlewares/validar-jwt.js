@@ -24,7 +24,7 @@ const validarJWT = async(req, res) =>{
             });
         }
 
-        if(usuario.estado){
+        if(!usuario.estado){
             return res.status(401).json({
                 msg: "El usuario fue eliminado anteriormente"
             });

@@ -56,12 +56,11 @@ const publicacionPost = async (req, res) => {
 
 
 const newPost = async (req, res) => {
-    const { contenido } = req.body;
-    const usuarioId = req.userId; // Se asume que el ID del usuario autenticado está presente en req.userId
+    const { titulo, contenido } = req.body;
+    const usuarioId = req.userId; // ID del usuario autenticado obtenido del token JWT
 
     try {
-        // Crear la publicación asociada al usuario autenticado
-        const publicacion = new Publicacion({ contenido, autor: usuarioId });
+        const publicacion = new Publicacion({ titulo, contenido, autor: usuarioId });
         await publicacion.save();
 
         res.status(201).json({ msg: 'Publicación creada correctamente', publicacion });
@@ -69,8 +68,7 @@ const newPost = async (req, res) => {
         console.error('Error al crear la publicación:', error);
         res.status(500).json({ msg: 'Error al crear la publicación' });
     }
-}
-
+};
 
 
 
