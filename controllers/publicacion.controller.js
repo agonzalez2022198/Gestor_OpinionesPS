@@ -1,4 +1,5 @@
 const Publicacion = require('../models/publicacion.model');
+const User = require('../models/usuario.model');
 const { response } = require('express');
 
 const publicacionGet = async (req, res =response) => {
@@ -71,11 +72,42 @@ const newPost = async (req, res) => {
 };
 
 
+const publicationsPost = async (req, res) => {
+    const user = req.usuario;
+
+    const { titulo, contenido } = req.body;
+
+    try {
+        const publication = new Publicacion({
+            titulo,
+            contenido,
+            usuario: user._id,
+        });
+
+        await publication.save();
+
+        const usuario = await User.findById(user._id);
+
+        res.status(200).json({
+            msg: 'Publicación agregada exitosamente',
+            publication: {
+                ...publication.toObject(),
+                usuario: usuario.correo
+            }
+        });
+    } catch (error) {
+        console.error('Error al crear la publicación:', error);
+        res.status(500).json({ error: 'Error al crear la publicación' });
+    }
+};
+
+
 
 module.exports = {
     publicacionGet,
     getPublicacinesById,
     publicacionDelete,
     publicacionPost,
-    newPost
+    newPost,
+    publicationsPost
 }

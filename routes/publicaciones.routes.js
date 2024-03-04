@@ -8,7 +8,7 @@ const {ensureAuthenticated} = require('../middlewares/autentificado');
 const Publicacion = require('../models/publicacion.model');
 
 const {
-    publicacionGet, getPublicacinesById, publicacionDelete, publicacionPost, newPost
+    publicacionGet, getPublicacinesById, publicacionDelete, publicacionPost, newPost, publicationsPost
 } = require('../controllers/publicacion.controller');
 
 const { publicacionExistente } = require('../helper/db-validator');
@@ -29,12 +29,11 @@ router.get(
 router.post(
     "/",
     [
-        
+        validarJWT,
         check("titulo", "El titulo no puede estar vacío").not().isEmpty(),
         check("contenido","El contenido no puede estar vacío").not().isEmpty(),
-        check("autor","Y el autor").not().isEmpty(),
         validarCampos,
-    ], publicacionPost
+    ], publicationsPost
 );
 
 router.delete(
@@ -47,7 +46,7 @@ router.delete(
 );
 
 
-router.post ('/publicaciones', ensureAuthenticated, async (req, res) => {
+/*router.post ('/publicaciones', ensureAuthenticated, async (req, res) => {
     try {
         const nuevaPublicacion = new Publicacion({
             titulo: req.body.titulo,
@@ -60,10 +59,31 @@ router.post ('/publicaciones', ensureAuthenticated, async (req, res) => {
     } catch (e) {
         res.status(400).json({msg: e.message});
     }
-});
+});*/
 
-router.post('/create', validarJWT, newPost);
+/*router.post(
+    '/create',
+    [
+        validarJWT,
+        check("titulo", "El titulo no puede estar vacío").not().isEmpty(),
+        check("contenido","El contenido no puede estar vacío").not().isEmpty(),
+        check("autor","Y el autor").not().isEmpty(),
+        validarCampos
+    ], newPost
+);*/
 
+
+router.post(
+    "/crear",
+    [
+        
+        check("titulo", "El título es requerido").not().isEmpty(),
+        check("contenido", "El contenido es requerido").not().isEmpty(),
+        validarCampos,
+        validarJWT
+    ],
+    publicationsPost
+);
 
 
 module.exports = router;

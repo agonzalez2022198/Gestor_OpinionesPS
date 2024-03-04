@@ -1,45 +1,41 @@
-const jwt = require('jsonwebtoken');
-const Usuario = require('../models/usuario.model');
+const jwt = require ('jsonwebtoken');
+const Usuario = require( '../models/usuario.model');
 
-const validarJWT = async(req, res) =>{
+const validarJWT = async(req, res, next) => {
+    const token = req.header("x-token");
 
-    const token = req.header('x-token');
-
-    if(!token){
+    if (!token) {
         return res.status(401).json({
-            msg: "No has ingresado el token"
+            msg: "There is no token in the request",
         });
-
     }
-
 
     try {
-        const { uid} = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
-
+        const { uid } = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
         const usuario = await Usuario.findById(uid);
-
-        if(!usuario){
+        if (!usuario) {
             return res.status(401).json({
-                msg: "No hay ningun usuario con ese id"
-            });
+                msg: 'User does not exist in the database'
+            })
         }
 
-        if(!usuario.estado){
+        if (!usuario.estado) {
             return res.status(401).json({
-                msg: "El usuario fue eliminado anteriormente"
-            });
-
-
+                msg: 'Invalid token - user with status: false'
+            })
         }
 
+        req.usuario = usuario;
+
+        next();
     } catch (e) {
-        console.log(e);
-        res.status(401).json({
-            msg: "Token no válido"
-        });
+        console.log(e),
+            res.status(401).json({
+                msg: "Invalid token",
+            });
     }
+};
 
-}
 
 module.exports = {
     validarJWT

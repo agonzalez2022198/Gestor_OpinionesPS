@@ -1,0 +1,90 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "opiniones gestor",
+    "dateExported": "2024-03-04T05:45:54.744Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "fba3765f-e621-439e-a888-4a501df39189",
+            "colId": "f7575348-f5bf-4367-aaa1-0bbcb81be1fd",
+            "containerId": "",
+            "name": "public post",
+            "url": "http://localhost:3000/api/publicacion",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-02-27T15:28:09.098Z",
+            "modified": "2024-03-04T05:26:24.572Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWU1NGM2NzVlNmU4M2U1YTVjMjI2MzIiLCJpYXQiOjE3MDk1Mjk5NjIsImV4cCI6MTcwOTUzMzU2Mn0.EVzmFjJfF7gn0ocNv3FWDu9zPdVrBfYe2Do3HoP8FUo"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"titulo\": \"Nuevas tecnologías\",\n  \"contenido\": \"Tecnologías nuevas en el pais\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3e1b19df-9708-4d4b-b2ae-1aeedd1ecb8a",
+            "colId": "f7575348-f5bf-4367-aaa1-0bbcb81be1fd",
+            "containerId": "",
+            "name": "usuario post",
+            "url": "http://localhost:3000/api/usuario",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-02-28T04:34:58.660Z",
+            "modified": "2024-03-04T04:22:00.105Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\": \"Adolfo\",\n  \"apellidos\": \"Perz\",\n  \"correo\": \"perzadolf@gmail.com\",\n  \"password\": \"1234567\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "1b66d17d-add5-462e-89e3-eba65c5a6ddf",
+            "colId": "f7575348-f5bf-4367-aaa1-0bbcb81be1fd",
+            "containerId": "",
+            "name": "put usuarios",
+            "url": "http://localhost:3000/api/usuario/65deb9967a9a82b145213bfe",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2024-02-28T04:43:59.587Z",
+            "modified": "2024-02-28T04:45:24.138Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\": \"Pedro\",\n  \"apellidos\": \"Morales\",\n  \"correo\": \"prodriguez@gmail.com\",\n  \"password\": \"346578912\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "2b1c123a-1dfa-44af-b42e-b8042200a864",
+            "colId": "f7575348-f5bf-4367-aaa1-0bbcb81be1fd",
+            "containerId": "",
+            "name": "login",
+            "url": "http://localhost:3000/api/auth/login",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-03-01T13:02:07.515Z",
+            "modified": "2024-03-04T04:22:09.339Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"correo\": \"perzadolf@gmail.com\",\n  \"password\": \"1234567\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

@@ -1,6 +1,6 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose')
 
-const PublicacionSchema = Schema({
+const PublicacionSchema = mongoose.Schema({
     titulo: {
         type: String,
         required: [true, 'Es necesario el titulo']
@@ -11,9 +11,10 @@ const PublicacionSchema = Schema({
         required: [true, 'No hay contenido']
     },
 
-    autor: {
-        type: Schema.Types.ObjectId,
-        ref: 'Usuario'
+    usuario: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }, 
 
     fechaPublic: {
@@ -23,4 +24,4 @@ const PublicacionSchema = Schema({
     }
 });
 
-module.exports = model('Publicacion', PublicacionSchema);
+module.exports = mongoose.model('Publicacion', PublicacionSchema);
